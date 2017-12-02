@@ -1,15 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
 
     public float speed = 5f;
+    public int hitpoints = 5;
     public GameObject slashGraphic;
+    int weaponDamage = 1;
+
+    public static Player instance;
 
 	// Use this for initialization
 	void Start () {
-		
+        if (instance != null) throw new System.Exception("2nd instance of player");
+        instance = this;
 	}
 	
 	// Update is called once per frame
@@ -32,6 +38,19 @@ public class Player : MonoBehaviour {
             slashGraphic.SetActive(true);
             Invoke("DeactivateSlash", .2f);
         }
+    }
+
+    internal void Attack(Enemy enemy)
+    {
+        enemy.hitpoints -= weaponDamage;
+        if (enemy.hitpoints <= 0)
+            Destroy(enemy.gameObject);
+    }
+
+    internal void Hit(Enemy enemy)
+    {
+        hitpoints -= enemy.damage;
+        Debug.Log("Hit. HP left: " + hitpoints);
     }
 
     void DeactivateSlash()
