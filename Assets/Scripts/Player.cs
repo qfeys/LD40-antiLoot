@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     int weaponDamage = 1;
     public int coins = 0;
     public List<Loot> inventory;
+    public Equipment equipment;
 
     public static Player instance;
 
@@ -60,4 +61,28 @@ public class Player : MonoBehaviour {
     {
         slashGraphic.SetActive(false);
     }
+
+    public class Equipment
+    {
+        public ItemSlot head = new ItemSlot(Loot.ItemSlot.head);
+        public ItemSlot chest = new ItemSlot(Loot.ItemSlot.chest);
+        public ItemSlot rHand = new ItemSlot(Loot.ItemSlot.rightHand);
+        public ItemSlot rArm = new ItemSlot(Loot.ItemSlot.arm);
+        public ItemSlot lHand = new ItemSlot(Loot.ItemSlot.leftHand);
+        public ItemSlot lArm = new ItemSlot(Loot.ItemSlot.arm);
+        public ItemSlot rLeg = new ItemSlot(Loot.ItemSlot.leg);
+        public ItemSlot lLeg = new ItemSlot(Loot.ItemSlot.leg);
+    }
+
+    public class ItemSlot
+    {
+        public Loot.ItemSlot slot;
+        public Loot item;
+
+        public ItemSlot(Loot.ItemSlot slot)
+        {
+            this.slot = slot;
+        }
+    }
+
 }
