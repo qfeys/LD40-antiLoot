@@ -17,7 +17,10 @@ public abstract class Loot
     {
         float r = Random.value;
         if (r < 0.1f) return Melee.GetRand(value);
-        return Melee.GetRand(value);
+        if (r < 0.3f) return Ranged.GetRand(value);
+        if (r < 0.4f) return Shield.GetRand(value);
+        if (r < 1.0f) return Armor.GetRand(value);
+        return null;
     }
 
     public Loot(ItemSlot slot, float weight, float value)
@@ -66,9 +69,22 @@ public abstract class Loot
         public float range;
         public bool twoHanded;
 
-        public Ranged(int damage, float range, float weight, bool twoHanded = true) : base(ItemSlot.rightHand, weight, 1)
+        public Ranged(int damage, float range, float weight, float value, bool twoHanded = true) : base(ItemSlot.rightHand, weight, value)
         {
             this.damage = damage; this.range = range; this.twoHanded = twoHanded;
+        }
+
+        internal static Loot GetRand(float value)
+        {
+            int d = Random.Range(1, (int)(value / 10) + 1);
+            float r = Random.Range(1, (value - d * 10) / 3 + 1);
+            float w = Mathf.Max(value - (d * 10 + r * 3) * 2, 1);
+            return new Ranged(d, r, w, value, true);
+        }
+
+        public override string ToString()
+        {
+            return "Bow";
         }
 
         internal override string GetStats()
@@ -86,6 +102,19 @@ public abstract class Loot
         {
             this.blockChancePassive = blockChancePassive; this.blockChanceActive = blockChanceActive;
         }
+        
+        internal static Loot GetRand(float value)
+        {
+            float bcp = Random.Range(1, (value / 10) + 1) / 100;
+            float bca = Random.Range(1, (value - bcp * 1000) / 10 + 1) / 10;
+            float w = Mathf.Max(value - (bcp * 1000 + bca * 100) * 2, 1) * 2;
+            return new Shield(bcp, bca, w, value);
+        }
+
+        public override string ToString()
+        {
+            return "Shield";
+        }
 
         internal override string GetStats()
         {
@@ -93,13 +122,30 @@ public abstract class Loot
         }
     }
 
-    public abstract class Armor : Loot
+    public class Armor : Loot
     {
         public float blockChance;
 
         public Armor(ItemSlot slot, float blockChance, float weight, float value) : base(slot, weight, value)
         {
             this.blockChance = blockChance;
+        }
+
+        internal static Loot GetRand(float value)
+        {
+            float bc = Random.Range(1, (value / 10) + 1) / 100;
+            float w = Mathf.Max(value - (bc * 1000) * 2, 1);
+            float v = Random.value;
+            if (v < .2f) return new Armor(ItemSlot.head, bc, w, v);
+            if (v < .4f) return new Armor(ItemSlot.chest, bc, w, v);
+            if (v < .7f) return new Armor(ItemSlot.arm, bc, w, v);
+            if (v < .1f) return new Armor(ItemSlot.leg, bc, w, v);
+            throw new System.Exception("Some random did something strange. Value = " + v);
+        }
+
+        public override string ToString()
+        {
+            return "Armor";
         }
 
         internal override string GetStats()

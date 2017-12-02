@@ -34,7 +34,6 @@ public class LootBox : MonoBehaviour {
             if (loot != null)
             {
                 Player.instance.inventory.Add(loot);
-                Debug.Log("Loot: " + loot.ToString() + " , Damage: " + ((Loot.Melee)loot).damage + " , Range: " + ((Loot.Melee)loot).range + " , Weight: " + loot.weight + " , Value: " + loot.value);
             }
             Destroy(gameObject);
         }

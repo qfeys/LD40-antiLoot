@@ -134,25 +134,25 @@ static class UI_inventory
         if (l.GetType() == typeof(Loot.Melee))
         {
             Loot.Melee m = (Loot.Melee)l;
-            return TextRef.Create("d: " + TextRef.ToSI(m.damage, "0.##") + ", r:" + TextRef.ToSI(m.range, "0.##"),
-                "Damage: " + TextRef.ToSI(m.damage, "0.##") + "\nRange: " + TextRef.ToSI(m.range, "0.##"), false);
+            return TextRef.Create("d: " + TextRef.ToSI(m.damage) + ", r:" + TextRef.ToSI(m.range),
+                "Damage: " + TextRef.ToSI(m.damage) + "\nRange: " + TextRef.ToSI(m.range), false);
         }
         else if (l.GetType() == typeof(Loot.Ranged))
         {
             Loot.Ranged r = (Loot.Ranged)l;
-            return TextRef.Create("d: " + TextRef.ToSI(r.damage, "0.##") + ", r:" + TextRef.ToSI(r.range, "0.##"),
-                "Damage: " + TextRef.ToSI(r.damage, "0.##") + "\nRange: " + TextRef.ToSI(r.range, "0.##"), false);
+            return TextRef.Create("d: " + TextRef.ToSI(r.damage) + ", r:" + TextRef.ToSI(r.range),
+                "Damage: " + TextRef.ToSI(r.damage) + "\nRange: " + TextRef.ToSI(r.range), false);
         }
         else if (l.GetType() == typeof(Loot.Shield))
         {
             Loot.Shield s = (Loot.Shield)l;
-            return TextRef.Create("p: " + s.blockChancePassive + ", a:" + s.blockChanceActive, 
-                "Passive block chance: " + s.blockChancePassive + "\nActive block chance: " + s.blockChanceActive, false);
+            return TextRef.Create("p: " + TextRef.ToSI(s.blockChancePassive) + ", a:" + TextRef.ToSI(s.blockChanceActive), 
+                "Passive block chance: " + TextRef.ToSI(s.blockChancePassive) + "\nActive block chance: " + TextRef.ToSI(s.blockChanceActive), false);
         }
         else if (l.GetType() == typeof(Loot.Armor))
         {
             Loot.Armor a = (Loot.Armor)l;
-            return TextRef.Create("b: " + a.blockChance, "Block chance: " + a.blockChance, false);
+            return TextRef.Create("b: " + TextRef.ToSI(a.blockChance), "Block chance: " + TextRef.ToSI(a.blockChance), false);
         }
 
 
