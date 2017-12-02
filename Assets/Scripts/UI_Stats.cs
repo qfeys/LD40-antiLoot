@@ -21,7 +21,7 @@ public class UI_Stats : MonoBehaviour {
 
     private void CreateMe()
     {
-        TextBox xpBox1 = new TextBox(transform, "Xp", 36);
+        TextBox xpBox1 = new TextBox(transform, TextRef.Create( "Xp", "Experiance", false), 36);
         xpBox1.transform.anchoredPosition = new Vector2(5, 38);
         TextBox xpBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.xp), 36, TextAnchor.MiddleRight);
         xpBox2.transform.anchoredPosition = new Vector2(-5, 38);

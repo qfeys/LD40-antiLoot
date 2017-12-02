@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Weapon
+  - PassiveCanvas
   layers:
   - Default
   - TransparentFX

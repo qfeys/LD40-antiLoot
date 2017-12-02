@@ -46,6 +46,11 @@ public abstract class Loot
             else
                 return new Melee(d, r, w, value, false);
         }
+
+        public override string ToString()
+        {
+            return "Sword";
+        }
     }
 
     public class Ranged : Loot
