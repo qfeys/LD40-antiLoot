@@ -9,13 +9,16 @@ public class Player : MonoBehaviour {
     public int hitpoints = 5;
     public GameObject slashGraphic;
     int weaponDamage = 1;
+    public int coins = 0;
+    public List<Loot> inventory;
 
     public static Player instance;
 
 	// Use this for initialization
 	void Start () {
-        if (instance != null) throw new System.Exception("2nd instance of player");
+        if (instance != null) throw new Exception("2nd instance of player");
         instance = this;
+        inventory = new List<Loot>();
 	}
 	
 	// Update is called once per frame

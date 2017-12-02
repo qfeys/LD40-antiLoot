@@ -36,5 +36,10 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    private void OnDestroy()
+    {
+        LootManager.instance.PlaceLootbox(transform.position);
+    }
+
 
 }

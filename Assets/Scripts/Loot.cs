@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-abstract class Loot
+public abstract class Loot
 {
 
 }
