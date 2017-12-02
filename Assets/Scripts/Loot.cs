@@ -25,6 +25,8 @@ public abstract class Loot
         this.slot = slot; this.weight = weight; this.value = value;
     }
 
+    internal abstract string GetStats();
+
     public class Melee : Loot
     {
         public int damage;
@@ -51,6 +53,11 @@ public abstract class Loot
         {
             return "Sword";
         }
+
+        internal override string GetStats()
+        {
+            return "Damage: " + damage + "\nRange: " + range + (twoHanded ? "\nTwo handed" : "") + "\nWeight: " + weight + "\nValue: " + value;
+        }
     }
 
     public class Ranged : Loot
@@ -63,6 +70,11 @@ public abstract class Loot
         {
             this.damage = damage; this.range = range; this.twoHanded = twoHanded;
         }
+
+        internal override string GetStats()
+        {
+            return "Damage: " + damage + "\nRange: " + range + (twoHanded ? "\nTwo handed" : "") + "\nWeight: " + weight + "\nValue: " + value;
+        }
     }
 
     public class Shield : Loot
@@ -74,6 +86,11 @@ public abstract class Loot
         {
             this.blockChancePassive = blockChancePassive; this.blockChanceActive = blockChanceActive;
         }
+
+        internal override string GetStats()
+        {
+            return "Passive block chance: " + blockChancePassive + "\nActive block chance: " + blockChanceActive + "\nWeight: " + weight + "\nValue: " + value;
+        }
     }
 
     public abstract class Armor : Loot
@@ -83,6 +100,11 @@ public abstract class Loot
         public Armor(ItemSlot slot, float blockChance, float weight, float value) : base(slot, weight, value)
         {
             this.blockChance = blockChance;
+        }
+
+        internal override string GetStats()
+        {
+            return "Block chance: " + blockChance + "\nSlot: " + slot + "\nWeight: " + weight + "\nValue: " + value;
         }
     }
 

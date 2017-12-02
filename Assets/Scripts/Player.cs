@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
     int weaponDamage = 1;
     public int coins = 0;
     public List<Loot> inventory;
-    public Equipment equipment;
+    public Equipment equipment = new Equipment();
 
     public static Player instance;
     public int xp;
@@ -85,6 +85,20 @@ public class Player : MonoBehaviour {
         public ItemSlot(Loot.ItemSlot slot)
         {
             this.slot = slot;
+        }
+
+        public string GetItemName()
+        {
+            if (item == null)
+                return "--";
+            else return item.ToString();
+        }
+
+        public string GetItemStats()
+        {
+            if (item == null)
+                return null;
+            else return item.GetStats();
         }
     }
 

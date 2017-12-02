@@ -15,7 +15,7 @@ public class UI_Slider : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float totalWeight = Player.instance.inventory.Sum(l => l.weight);
+        float totalWeight = Player.instance.inventory.Sum(l => l.weight) + Player.instance.coins / 10;
         float carryingCap = Player.carryingCap;
         float ratio = totalWeight / carryingCap;
 
