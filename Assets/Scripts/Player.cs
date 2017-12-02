@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,8 @@ public class Player : MonoBehaviour {
 
     public static Player instance;
     public int xp;
-    public static float carryingCap = 10;
+    public float carryingCap = 10;
+    public float TotalWeight { get { return inventory.Sum(l => l.weight) + coins / 10; } }
     internal static float encumburance = 1;
     private float doge = 0;
 
