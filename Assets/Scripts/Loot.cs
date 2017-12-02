@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public abstract class Loot
 {
@@ -12,6 +12,13 @@ public abstract class Loot
 
     public enum ItemSlot { rightHand, leftHand, chest, head, arm, leg}
     public ItemSlot slot;
+
+    public static Loot GetRandLoot(float value)
+    {
+        float r = Random.value;
+        if (r < 0.1f) return Melee.GetRand(value);
+        return Melee.GetRand(value);
+    }
 
     public Loot(ItemSlot slot, float weight, float value)
     {
@@ -24,9 +31,20 @@ public abstract class Loot
         public float range;
         public bool twoHanded;
 
-        public Melee(int damage, float range, float weight, bool twoHanded = false) : base(ItemSlot.rightHand, weight, 1)
+        public Melee(int damage, float range, float weight, float value, bool twoHanded = false) : base(ItemSlot.rightHand, weight, value)
         {
             this.damage = damage; this.range = range; this.twoHanded = twoHanded;
+        }
+
+        internal static Melee GetRand(float value)
+        {
+            int d = Random.Range(1, (int)(value/10) + 1);
+            float r = Random.Range(1, (value - d * 10)/10 + 1);
+            float w = Mathf.Max(value - (d * 10 + r * 10) * 2, 1);
+            if (Random.value > 0.7)
+                return new Melee(d, r, w, value * 2 / 3, true);
+            else
+                return new Melee(d, r, w, value, false);
         }
     }
 

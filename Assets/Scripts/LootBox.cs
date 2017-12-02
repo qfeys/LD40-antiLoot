@@ -16,6 +16,8 @@ public class LootBox : MonoBehaviour {
 	void Start () {
         coins = Random.Range(1, 6);
         pos = transform.position;
+        if (Random.value > 0.6)
+            loot = Loot.GetRandLoot(20);
 	}
 	
 	// Update is called once per frame
@@ -29,7 +31,11 @@ public class LootBox : MonoBehaviour {
         if (collision.CompareTag("Player"))
         {
             Player.instance.coins += coins;
-            Player.instance.inventory.Add(loot);
+            if (loot != null)
+            {
+                Player.instance.inventory.Add(loot);
+                Debug.Log("Loot: " + loot.ToString() + " , Damage: " + ((Loot.Melee)loot).damage + " , Range: " + ((Loot.Melee)loot).range + " , Weight: " + loot.weight + " , Value: " + loot.value);
+            }
             Destroy(gameObject);
         }
     }
