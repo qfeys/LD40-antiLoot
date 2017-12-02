@@ -15,6 +15,8 @@ public class Player : MonoBehaviour {
 
     public static Player instance;
     public int xp;
+    public static float carryingCap = 10;
+    internal static float encumburance = 1;
 
     private void Awake()
     {
@@ -28,11 +30,11 @@ public class Player : MonoBehaviour {
     {
         if (Input.GetButton("Horizontal"))
         {
-            transform.Translate(Vector3.right * Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.right * Input.GetAxisRaw("Horizontal") * speed * encumburance * Time.deltaTime, Space.World);
         }
         if (Input.GetButton("Vertical"))
         {
-            transform.Translate(Vector3.up * Input.GetAxisRaw("Vertical") * speed * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.up * Input.GetAxisRaw("Vertical") * speed * encumburance * Time.deltaTime, Space.World);
         }
 
         Vector3 screenPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z - Camera.main.transform.position.z));
