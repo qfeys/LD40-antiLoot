@@ -17,6 +17,7 @@ public class Player : MonoBehaviour {
     public int xp;
     public static float carryingCap = 10;
     internal static float encumburance = 1;
+    private float doge = 0;
 
     private void Awake()
     {
@@ -54,8 +55,18 @@ public class Player : MonoBehaviour {
             Destroy(enemy.gameObject);
     }
 
-    internal void Hit(Enemy enemy)
+    internal void ProcessHit(Enemy enemy)
     {
+        if (UnityEngine.Random.value < doge) {
+            Debug.Log("Doged the attack");
+            return;
+        }
+        float armor = equipment.Armor(true);
+        if(UnityEngine.Random.value < armor)
+        {
+            Debug.Log("Deflected the attack");
+            return;
+        }
         hitpoints -= enemy.damage;
         Debug.Log("Hit. HP left: " + hitpoints);
     }
@@ -75,6 +86,19 @@ public class Player : MonoBehaviour {
         public ItemSlot lArm = new ItemSlot(Loot.ItemSlot.arm);
         public ItemSlot rLeg = new ItemSlot(Loot.ItemSlot.leg);
         public ItemSlot lLeg = new ItemSlot(Loot.ItemSlot.leg);
+
+        internal float Armor(bool shieldActive)
+        {
+            float a = 0;
+            a += (head.item == null ? 0 : ((head.item) as Loot.Armor).blockChance);
+            a += (chest.item == null ? 0 : ((chest.item) as Loot.Armor).blockChance);
+            a += (rArm.item == null ? 0 : ((rArm.item) as Loot.Armor).blockChance);
+            a += (lArm.item == null ? 0 : ((lArm.item) as Loot.Armor).blockChance);
+            a += (rLeg.item == null ? 0 : ((rLeg.item) as Loot.Armor).blockChance);
+            a += (lLeg.item == null ? 0 : ((lLeg.item) as Loot.Armor).blockChance);
+            a += (lHand.item == null ? 0 : shieldActive ? ((lLeg.item) as Loot.Shield).blockChanceActive : ((lLeg.item) as Loot.Shield).blockChancePassive);
+            return a;
+        }
     }
 
     public class ItemSlot
