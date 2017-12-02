@@ -14,13 +14,14 @@ public class Player : MonoBehaviour {
     public Equipment equipment;
 
     public static Player instance;
+    public int xp;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
         if (instance != null) throw new Exception("2nd instance of player");
         instance = this;
         inventory = new List<Loot>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
