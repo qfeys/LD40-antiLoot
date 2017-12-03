@@ -129,7 +129,7 @@ public class MapGenerator : MonoBehaviour {
         TileChunk(0, 1);
         TileChunk(1, 0);
         TileChunk(1, 1);
-
+        SpawnEnemies(0, 0);
     }
 
     private bool[,] GenerateChunk(Vector2Int chunkPos)
@@ -360,8 +360,8 @@ public class MapGenerator : MonoBehaviour {
     private void SpawnEnemies(int hChunk, int vChunk)
     {
         float distance = Mathf.Sqrt(Mathf.Pow(hChunk, 2) + Mathf.Pow(vChunk, 2));
-        float difficulty = Mathf.Pow(distance / 100, 1.5f);
-        float value = Mathf.Pow(distance, 2);
+        float difficulty = Mathf.Max( Mathf.Pow(distance / 100, 1.5f),1);
+        float value = Mathf.Max(Mathf.Pow(distance, 2), 1);
         int j = 0;
         while (value > 0)
         {

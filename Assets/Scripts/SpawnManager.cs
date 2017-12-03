@@ -24,5 +24,6 @@ public class SpawnManager : MonoBehaviour {
         component.damage = damage;
         component.lungeRange = lungeRange;
         component.attackSpeed = attackSpeed;
+        newEnemy.tag = "Enemy";
     }
 }

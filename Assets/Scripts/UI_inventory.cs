@@ -183,14 +183,18 @@ static class UI_inventory
             itms = Player.instance.equipment.rLeg; break;
         case "Left leg":
             itms = Player.instance.equipment.lLeg; break;
+        default:
+            throw new Exception("Stupid shit in equipment");
         }
-        if(lt.slot == itms.slot)
+        if (lt.slot == itms.slot)
         {
             if (itms.item != null)
                 Player.instance.inventory.Add(itms.item);
             itms.item = lt;
+            inventoryTable.Redraw();
             Player.instance.inventory.Remove(lt);
         }
+        else Debug.Log("Not a valid slot");
     }
 
     private static void DiscardSelected()

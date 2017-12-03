@@ -9,7 +9,6 @@ public class Player : MonoBehaviour {
     public float speed = 5f;
     public int hitpoints = 5;
     public GameObject slashGraphic;
-    int weaponDamage = 1;
     public int coins = 0;
     public List<Loot> inventory;
     public Equipment equipment = new Equipment();
@@ -27,9 +26,15 @@ public class Player : MonoBehaviour {
         instance = this;
         inventory = new List<Loot>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    private void Start()
+    {
+        equipment.rHand.item = new Loot.Melee(1, 1, 1, 1);
+        inventory.Add(new Loot.Melee(2, 2, 1, 1));
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         bool validTerrain = MapGenerator.instance.IsValidTerrain(transform.position);
         if (Input.GetButton("Horizontal"))
@@ -51,11 +56,9 @@ public class Player : MonoBehaviour {
         }
     }
 
-    internal void Attack(Enemy enemy)
+    internal void Attack(Enemy enemy, int damage)
     {
-        enemy.hitpoints -= weaponDamage;
-        if (enemy.hitpoints <= 0)
-            enemy.Die();
+        enemy.ProcessHit(damage);
     }
 
     internal void ProcessHit(Enemy enemy)
@@ -99,7 +102,7 @@ public class Player : MonoBehaviour {
             a += (lArm.item == null ? 0 : ((lArm.item) as Loot.Armor).blockChance);
             a += (rLeg.item == null ? 0 : ((rLeg.item) as Loot.Armor).blockChance);
             a += (lLeg.item == null ? 0 : ((lLeg.item) as Loot.Armor).blockChance);
-            a += (lHand.item == null ? 0 : shieldActive ? ((lLeg.item) as Loot.Shield).blockChanceActive : ((lLeg.item) as Loot.Shield).blockChancePassive);
+            a += (lHand.item == null ? 0 : shieldActive ? ((lHand.item) as Loot.Shield).blockChanceActive : ((lHand.item) as Loot.Shield).blockChancePassive);
             return a;
         }
     }

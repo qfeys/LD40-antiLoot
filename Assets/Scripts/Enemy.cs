@@ -49,14 +49,11 @@ public class Enemy : MonoBehaviour {
         Debug.Log("Fall Back");
     }
 
-    // OnTriggerEnter2D is called when the Collider2D other enters the trigger (2D physics only)
-    private void OnTriggerEnter2D(Collider2D collision)
+    internal void ProcessHit(int damage)
     {
-        if (collision.gameObject.CompareTag("Weapon"))
-        {
-            Player pl = collision.GetComponentInParent<Player>();
-            pl.Attack(this);
-        }
+        hitpoints -= damage;
+        if (hitpoints <= 0)
+            Die();
     }
 
     internal void Die()
