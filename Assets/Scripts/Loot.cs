@@ -139,7 +139,7 @@ public abstract class Loot
             if (v < .2f) return new Armor(ItemSlot.head, bc, w, v);
             if (v < .4f) return new Armor(ItemSlot.chest, bc, w, v);
             if (v < .7f) return new Armor(ItemSlot.arm, bc, w, v);
-            if (v < .1f) return new Armor(ItemSlot.leg, bc, w, v);
+            if (v < 1f) return new Armor(ItemSlot.leg, bc, w, v);
             throw new System.Exception("Some random did something strange. Value = " + v);
         }
 
