@@ -31,13 +31,14 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        bool validTerrain = MapGenerator.instance.IsValidTerrain(transform.position);
         if (Input.GetButton("Horizontal"))
         {
-            transform.Translate(Vector3.right * Input.GetAxisRaw("Horizontal") * speed * encumburance * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.right * Input.GetAxisRaw("Horizontal") * speed * encumburance * Time.deltaTime * (validTerrain? 1 : .4f), Space.World);
         }
         if (Input.GetButton("Vertical"))
         {
-            transform.Translate(Vector3.up * Input.GetAxisRaw("Vertical") * speed * encumburance * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.up * Input.GetAxisRaw("Vertical") * speed * encumburance * Time.deltaTime * (validTerrain ? 1 : .4f), Space.World);
         }
 
         Vector3 screenPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z - Camera.main.transform.position.z));

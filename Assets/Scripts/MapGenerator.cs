@@ -68,9 +68,8 @@ public class MapGenerator : MonoBehaviour {
     // Use this for initialization
     void Start () {
         if (instance != null)
-            instance = this;
-        else
             throw new Exception("2x instances of Map generator");
+        instance = this;
         Generate();
 	}
 
@@ -240,7 +239,7 @@ public class MapGenerator : MonoBehaviour {
     public bool IsSwamp(int x, int y)
     {
         float p = Mathf.PerlinNoise(x / 4.0f, y / 2.0f);
-        float bias = Mathf.Pow(2 * (x + 20 * Mathf.Sin(x / 20f)) - (3 + y / 1000) * (y + 12 * Mathf.Sin(y / 12f)), 2) / 16000 - .7f;
+        float bias = Mathf.Pow((2 + y / 1000) * (x + 20 * Mathf.Sin(x / 20f)) - (3 + x / 2000) * (y + 12 * Mathf.Sin(y / 12f)), 2) / 16000 - .7f;
         return p > -bias;
     }
 
@@ -346,5 +345,11 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
+    }
+    
+
+    internal bool IsValidTerrain(Vector2 position)
+    {
+        return !IsSwamp((int)position.x, (int)position.y);
     }
 }
