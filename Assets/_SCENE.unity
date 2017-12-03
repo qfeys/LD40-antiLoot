@@ -1246,7 +1246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashGraphic: {fileID: 1688601234}
   bowGraphic: {fileID: 1028351771}
-  shieldGraphic: {fileID: 0}
+  shieldGraphic: {fileID: 937859658}
   arrowPrefab: {fileID: 1225844939091772, guid: 00e9d29031223244d97521b0b24e0d99,
     type: 2}
 --- !u!1 &1601080403

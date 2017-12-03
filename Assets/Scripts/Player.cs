@@ -36,8 +36,6 @@ public class Player : MonoBehaviour {
     {
         bool validTerrain = MapGenerator.instance.IsValidTerrain(transform.position);
         bool shieldUp = ((equipment.lHand.item != null) && Input.GetMouseButton(1));
-        Debug.Log("lhand item: " + (equipment.lHand.item != null));
-        Debug.Log("Shield up: " + shieldUp);
         if (Input.GetButton("Horizontal"))
         {
             transform.Translate(Vector3.right * Input.GetAxisRaw("Horizontal") * speed * encumburance * Time.deltaTime * (validTerrain ? 1 : .4f) * (shieldUp ? .4f : 1), Space.World);
