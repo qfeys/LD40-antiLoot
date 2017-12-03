@@ -44,8 +44,8 @@ public abstract class Loot
         internal static Melee GetRand(float value)
         {
             int d = Random.Range(1, (int)(value/10) + 1);
-            float r = Random.Range(1, (value - d * 10)/10 + 1);
-            float w = Mathf.Max(value - (d * 10 + r * 10) * 2, 1);
+            float r = Random.Range(1, (int)((value - (d - 1) * 10) / 10 + 1));
+            float w = Mathf.Max(((d - 1) * 10 + (r - 1) * 10) * 2 - value, 1);
             if (Random.value > 0.7)
                 return new Melee(d, r, w, value * 2 / 3, true);
             else
@@ -77,8 +77,8 @@ public abstract class Loot
         internal static Loot GetRand(float value)
         {
             int d = Random.Range(1, (int)(value / 10) + 1);
-            float r = Random.Range(1, (value - d * 10) / 3 + 1);
-            float w = Mathf.Max(value - (d * 10 + r * 3) * 2, 1);
+            float r = Random.Range(2, (int)((value - (d - 1) * 10) / 3 + 2));
+            float w = Mathf.Max(((d - 1) * 10 + (r - 2) * 3) * 2 - value, 1);
             return new Ranged(d, r, w, value, true);
         }
 
@@ -105,9 +105,9 @@ public abstract class Loot
         
         internal static Loot GetRand(float value)
         {
-            float bcp = Random.Range(1, (value / 10) + 1) / 100;
-            float bca = Random.Range(1, (value - bcp * 1000) / 10 + 1) / 10;
-            float w = Mathf.Max(value - (bcp * 1000 + bca * 100) * 2, 1) * 2;
+            float bcp = Random.Range(1, (value / 10) + 1) / 50;
+            float bca = Random.Range(1, (value - (bcp - .02f) * 1000) / 10 + 1) / 5;
+            float w = Mathf.Max(((bcp - .02f) * 1000 + (bca - .2f) * 100) * 2 - value, 1) * 2;
             return new Shield(bcp, bca, w, value);
         }
 
@@ -118,7 +118,7 @@ public abstract class Loot
 
         internal override string GetStats()
         {
-            return "Passive block chance: " + blockChancePassive + "\nActive block chance: " + blockChanceActive + "\nWeight: " + weight + "\nValue: " + value;
+            return "Passive block chance: " + blockChancePassive.ToString("#0%") + "\nActive block chance: " + blockChanceActive.ToString("#0%") + "\nWeight: " + weight + "\nValue: " + value;
         }
     }
 
@@ -133,7 +133,7 @@ public abstract class Loot
 
         internal static Loot GetRand(float value)
         {
-            float bc = Random.Range(1, (value / 10) + 1) / 100;
+            float bc = Random.Range(1, (value / 10) + 1) / 50;
             float w = Mathf.Max(value - (bc * 1000) * 2, 1);
             float v = Random.value;
             if (v < .2f) return new Armor(ItemSlot.head, bc, w, v);

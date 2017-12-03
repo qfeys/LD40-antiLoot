@@ -391,7 +391,7 @@ public class MapGenerator : MonoBehaviour {
             int y = vChunk * CHUNK_SIZE + UnityEngine.Random.Range(5, CHUNK_SIZE - 5);
             if (IsSwamp(x, y)) continue;
             GameObject shop = GameObject.Instantiate(ShopPrefab, new Vector3(x, y), Quaternion.identity);
-            shop.GetComponent<ShopScript>().value = value;
+            shop.GetComponent<ShopScript>().value = value * 10;
             break;
         }
     }

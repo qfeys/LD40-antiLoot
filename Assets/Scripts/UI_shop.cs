@@ -22,7 +22,7 @@ static class UI_shop
         go.transform.SetParent(canvas.transform);
         go.AddComponent<Dragable>();
         RectTransform tr = (RectTransform)go.transform;
-        tr.sizeDelta = new Vector2(920, 600);
+        tr.sizeDelta = new Vector2(1100, 600);
         tr.anchorMin = new Vector2(.5f, .5f);
         tr.anchorMax = new Vector2(.5f, .5f);
         tr.pivot = new Vector2(.5f, .5f);
@@ -35,23 +35,23 @@ static class UI_shop
         {
             shopInventoryTable = InfoTable.Create(go.transform, () => inventory,
                 (Loot l) => new List<TextRef>() { l.ToString(), GetSpecificDetails(l), l.weight, l.value, l.slot.ToString() },
-                460, new List<TextRef>() { "Inventory", "Specifics", TextRef.Create("w", "Weight", false), TextRef.Create("v", "value", false), "s" }, 24, "Me");
+                520, new List<TextRef>() { "Inventory", "Specifics", TextRef.Create("w", "Weight", false), TextRef.Create("v", "value", false), "s" }, 24, "Shop");
             shopInventoryTable.transform.anchorMin = new Vector2(0, 1);
             shopInventoryTable.transform.anchorMax = new Vector2(0, 1);
             shopInventoryTable.transform.pivot = new Vector2(0, 1);
             shopInventoryTable.transform.anchoredPosition = new Vector2(10, -50);
-            shopInventoryTable.SetColumnWidths(new List<float>() { 160, 80, 50, 50, 160 });
+            shopInventoryTable.SetColumnWidths(new List<float>() { 160, 80, 60, 60, 160 });
         }
         /// Table with my inventory
         {
             myInventoryTable = InfoTable.Create(go.transform, () => Player.instance.inventory,
                 (Loot l) => new List<TextRef>() { l.ToString(), GetSpecificDetails(l), l.weight, l.value, l.slot.ToString() },
-                460, new List<TextRef>() { "Inventory", "Specifics", TextRef.Create("w", "Weight", false), TextRef.Create("v", "value", false), "s" }, 24, "Me");
+                520, new List<TextRef>() { "Inventory", "Specifics", TextRef.Create("w", "Weight", false), TextRef.Create("v", "value", false), "s" }, 24, "Me");
             myInventoryTable.transform.anchorMin = new Vector2(1, 1);
             myInventoryTable.transform.anchorMax = new Vector2(1, 1);
             myInventoryTable.transform.pivot = new Vector2(1, 1);
             myInventoryTable.transform.anchoredPosition = new Vector2(-10, -50);
-            myInventoryTable.SetColumnWidths(new List<float>() { 160, 80, 50, 50, 160 });
+            myInventoryTable.SetColumnWidths(new List<float>() { 160, 80, 60, 60, 160 });
         }
 
         /// Bottom buttons

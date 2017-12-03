@@ -27,7 +27,7 @@ public class LootBox : MonoBehaviour {
         coins = (int)Random.Range(value / 10, value - 1) + 1;
         pos = transform.position;
         if (Random.value > 0.6)
-            loot = Loot.GetRandLoot(value - coins);
+            loot = Loot.GetRandLoot(value * 1.2f - coins);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -76,12 +76,12 @@ static class UI_inventory
         {
             inventoryTable = InfoTable.Create(go.transform, () => Player.instance.inventory,
                 (Loot l) => new List<TextRef>() { l.ToString(), GetSpecificDetails(l), l.weight, l.value, l.slot.ToString() },
-                460, new List<TextRef>() { "Inventory", "Specifics", TextRef.Create("w", "Weight", false), TextRef.Create("v", "value", false), "s" }, 24);
+                520, new List<TextRef>() { "Inventory", "Specifics", TextRef.Create("w", "Weight", false), TextRef.Create("v", "value", false), "s" }, 24);
             inventoryTable.transform.anchorMin = new Vector2(1, 1);
             inventoryTable.transform.anchorMax = new Vector2(1, 1);
             inventoryTable.transform.pivot = new Vector2(1, 1);
             inventoryTable.transform.anchoredPosition = new Vector2(-10, -50);
-            inventoryTable.SetColumnWidths(new List<float>() { 160, 80, 50, 50, 160 });
+            inventoryTable.SetColumnWidths(new List<float>() { 160, 80, 60, 60, 160 });
         }
 
         /// Bottom buttons
@@ -116,12 +116,12 @@ static class UI_inventory
         if (equipmentTitles == null) equipmentTitles = new List<TextBox>();
         equipmentTitles.Add(equ);
         GameObject go = new GameObject("EquipmentTitle", typeof(RectTransform));
-        go.transform.parent = equ.transform.parent;
+        go.transform.parent = equ.transform;
         RectTransform rt = go.transform as RectTransform;
         rt.anchorMin = new Vector2(0, 1);
         rt.anchorMax = new Vector2(0, 1);
         rt.pivot = new Vector2(0, 1);
-        rt.anchoredPosition = equ.transform.anchoredPosition;
+        rt.anchoredPosition = new Vector2(0, 0);
         rt.sizeDelta = new Vector2(100, 50);
         go.AddComponent<Image>().color = new Color(0, 0, 0, 0);
         Button but = go.AddComponent<Button>();
@@ -172,6 +172,7 @@ static class UI_inventory
     {
         Loot lt = inventoryTable.RetrieveHighlight<Loot>();
         Player.ItemSlot itms = null;
+        bool rightHandFlag = false;
         switch (equipmentHighlight.Text)
         {
         case "Head":
@@ -179,7 +180,7 @@ static class UI_inventory
         case "Chest":
             itms = Player.instance.equipment.chest; break;
         case "Right Hand":
-            itms = Player.instance.equipment.rHand; break;
+            itms = Player.instance.equipment.rHand; rightHandFlag = true; break;
         case "Left Hand":
             itms = Player.instance.equipment.lHand; break;
         case "Right arm":

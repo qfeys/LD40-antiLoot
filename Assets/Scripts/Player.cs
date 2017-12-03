@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float speed = 5f;
-    public int hitpoints = 5;
+    public int hitpoints = 10;
     public int coins = 0;
     public List<Loot> inventory;
     public Equipment equipment = new Equipment();
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
 
     private void Start()
     {
-        equipment.rHand.item = new Loot.Melee(1, 8, 1, 1);
+        equipment.rHand.item = new Loot.Melee(1, 1, 1, 1);
     }
 
     // Update is called once per frame
