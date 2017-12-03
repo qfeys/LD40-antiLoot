@@ -99,100 +99,6 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update ()
-    {
-        if (viewPoint.position.x < (hChunk * CHUNK_SIZE + CHUNK_SIZE / 2f))
-        {
-            hChunk--;
-            RecalculateChunkPos();
-            if (hChunk % 2 == 0) // is even
-                RedrawH0();
-            else
-                RedrawH1();
-        }
-        else if (viewPoint.position.x > ((hChunk + 2) * CHUNK_SIZE - CHUNK_SIZE / 2f))
-        {
-            hChunk++;
-            RecalculateChunkPos();
-            if (hChunk % 2 == 0) // is even
-                RedrawH1();
-            else
-                RedrawH0();
-        }
-        if (viewPoint.position.y < (vChunk * CHUNK_SIZE + CHUNK_SIZE/2f))
-        {
-            vChunk--;
-            RecalculateChunkPos();
-            if (vChunk % 2 == 0) // is even
-                RedrawV0();
-            else
-                RedrawV1();
-        }
-        else if (viewPoint.position.y > ((vChunk + 2) * CHUNK_SIZE - CHUNK_SIZE/2f))
-        {
-            vChunk++;
-            RecalculateChunkPos();
-            if (vChunk % 2 == 0) // is even
-                RedrawV1();
-            else
-                RedrawV0();
-        }
-    }
-
-    private void RecalculateChunkPos()
-    {
-        bool hEven = hChunk % 2 == 0;
-        bool vEven = vChunk % 2 == 0;
-        chunk00pos = new Vector2Int(hChunk + (hEven ? 0 : +1), vChunk + (vEven ? 0 : +1));
-        chunk01pos = new Vector2Int(hChunk + (hEven ? 0 : +1), vChunk + (vEven ? +1 : 0));
-        chunk10pos = new Vector2Int(hChunk + (hEven ? +1 : 0), vChunk + (vEven ? 0 : +1));
-        chunk11pos = new Vector2Int(hChunk + (hEven ? +1 : 0), vChunk + (vEven ? +1 : 0));
-        Debug.Log("00: " + chunk00pos);
-        Debug.Log("01: " + chunk01pos);
-        Debug.Log("10: " + chunk10pos);
-        Debug.Log("11: " + chunk11pos);
-    }
-
-    private void RedrawH0()
-    {
-        chunk00 = GenerateChunk(chunk00pos);
-        chunk01 = GenerateChunk(chunk01pos);
-        PlaceChunk(chunk00gos, chunk00pos);
-        PlaceChunk(chunk01gos, chunk01pos);
-        TileChunk(0, 0);
-        TileChunk(0, 1);
-    }
-
-    private void RedrawH1()
-    {
-        chunk10 = GenerateChunk(chunk10pos);
-        chunk11 = GenerateChunk(chunk11pos);
-        PlaceChunk(chunk10gos, chunk10pos);
-        PlaceChunk(chunk11gos, chunk11pos);
-        TileChunk(1, 0);
-        TileChunk(1, 1);
-    }
-
-    private void RedrawV0()
-    {
-        chunk00 = GenerateChunk(chunk00pos);
-        chunk01 = GenerateChunk(chunk10pos);
-        PlaceChunk(chunk00gos, chunk00pos);
-        PlaceChunk(chunk10gos, chunk10pos);
-        TileChunk(0, 0);
-        TileChunk(1, 0);
-    }
-
-    private void RedrawV1()
-    {
-        chunk10 = GenerateChunk(chunk01pos);
-        chunk11 = GenerateChunk(chunk11pos);
-        PlaceChunk(chunk01gos, chunk01pos);
-        PlaceChunk(chunk11gos, chunk11pos);
-        TileChunk(0, 1);
-        TileChunk(1, 1);
-    }
 
     /// <summary>
     /// Generate the tiles for the first time
@@ -346,7 +252,101 @@ public class MapGenerator : MonoBehaviour {
             }
         }
     }
-    
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (viewPoint.position.x < (hChunk * CHUNK_SIZE + CHUNK_SIZE / 2f))
+        {
+            hChunk--;
+            RecalculateChunkPos();
+            if (hChunk % 2 == 0) // is even
+                RedrawH0();
+            else
+                RedrawH1();
+        }
+        else if (viewPoint.position.x > ((hChunk + 2) * CHUNK_SIZE - CHUNK_SIZE / 2f))
+        {
+            hChunk++;
+            RecalculateChunkPos();
+            if (hChunk % 2 == 0) // is even
+                RedrawH1();
+            else
+                RedrawH0();
+        }
+        if (viewPoint.position.y < (vChunk * CHUNK_SIZE + CHUNK_SIZE / 2f))
+        {
+            vChunk--;
+            RecalculateChunkPos();
+            if (vChunk % 2 == 0) // is even
+                RedrawV0();
+            else
+                RedrawV1();
+        }
+        else if (viewPoint.position.y > ((vChunk + 2) * CHUNK_SIZE - CHUNK_SIZE / 2f))
+        {
+            vChunk++;
+            RecalculateChunkPos();
+            if (vChunk % 2 == 0) // is even
+                RedrawV1();
+            else
+                RedrawV0();
+        }
+    }
+
+    private void RecalculateChunkPos()
+    {
+        bool hEven = hChunk % 2 == 0;
+        bool vEven = vChunk % 2 == 0;
+        chunk00pos = new Vector2Int(hChunk + (hEven ? 0 : +1), vChunk + (vEven ? 0 : +1));
+        chunk01pos = new Vector2Int(hChunk + (hEven ? 0 : +1), vChunk + (vEven ? +1 : 0));
+        chunk10pos = new Vector2Int(hChunk + (hEven ? +1 : 0), vChunk + (vEven ? 0 : +1));
+        chunk11pos = new Vector2Int(hChunk + (hEven ? +1 : 0), vChunk + (vEven ? +1 : 0));
+        Debug.Log("00: " + chunk00pos);
+        Debug.Log("01: " + chunk01pos);
+        Debug.Log("10: " + chunk10pos);
+        Debug.Log("11: " + chunk11pos);
+    }
+
+    private void RedrawH0()
+    {
+        chunk00 = GenerateChunk(chunk00pos);
+        chunk01 = GenerateChunk(chunk01pos);
+        PlaceChunk(chunk00gos, chunk00pos);
+        PlaceChunk(chunk01gos, chunk01pos);
+        TileChunk(0, 0);
+        TileChunk(0, 1);
+    }
+
+    private void RedrawH1()
+    {
+        chunk10 = GenerateChunk(chunk10pos);
+        chunk11 = GenerateChunk(chunk11pos);
+        PlaceChunk(chunk10gos, chunk10pos);
+        PlaceChunk(chunk11gos, chunk11pos);
+        TileChunk(1, 0);
+        TileChunk(1, 1);
+    }
+
+    private void RedrawV0()
+    {
+        chunk00 = GenerateChunk(chunk00pos);
+        chunk01 = GenerateChunk(chunk10pos);
+        PlaceChunk(chunk00gos, chunk00pos);
+        PlaceChunk(chunk10gos, chunk10pos);
+        TileChunk(0, 0);
+        TileChunk(1, 0);
+    }
+
+    private void RedrawV1()
+    {
+        chunk10 = GenerateChunk(chunk01pos);
+        chunk11 = GenerateChunk(chunk11pos);
+        PlaceChunk(chunk01gos, chunk01pos);
+        PlaceChunk(chunk11gos, chunk11pos);
+        TileChunk(0, 1);
+        TileChunk(1, 1);
+    }
 
     internal bool IsValidTerrain(Vector2 position)
     {
