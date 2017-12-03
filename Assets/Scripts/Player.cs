@@ -8,7 +8,6 @@ public class Player : MonoBehaviour {
 
     public float speed = 5f;
     public int hitpoints = 5;
-    public GameObject slashGraphic;
     public int coins = 0;
     public List<Loot> inventory;
     public Equipment equipment = new Equipment();
@@ -29,7 +28,7 @@ public class Player : MonoBehaviour {
 
     private void Start()
     {
-        equipment.rHand.item = new Loot.Melee(1, 1, 1, 1);
+        equipment.rHand.item = new Loot.Ranged(1, 8, 1, 1);
         inventory.Add(new Loot.Melee(2, 2, 1, 1));
     }
 
@@ -49,11 +48,6 @@ public class Player : MonoBehaviour {
         Vector3 screenPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z - Camera.main.transform.position.z));
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2((screenPos.y - transform.position.y), (screenPos.x - transform.position.x)) * Mathf.Rad2Deg);
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            slashGraphic.SetActive(true);
-            Invoke("DeactivateSlash", .2f);
-        }
     }
 
     internal void Attack(Enemy enemy, int damage)
@@ -75,11 +69,6 @@ public class Player : MonoBehaviour {
         }
         hitpoints -= enemy.damage;
         Debug.Log("Hit. HP left: " + hitpoints);
-    }
-
-    void DeactivateSlash()
-    {
-        slashGraphic.SetActive(false);
     }
 
     public class Equipment

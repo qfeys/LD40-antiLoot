@@ -43,7 +43,16 @@ public class UI_Stats : MonoBehaviour {
     void Update () {
         if (Input.GetButtonDown("inventory"))
         {
-            UI_inventory.go.SetActive(!UI_inventory.go.activeSelf);
+            if (UI_inventory.go.activeSelf)
+            {
+                UI_inventory.go.SetActive(false);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                UI_inventory.go.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
 	}
 }

@@ -1,20 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponScript : MonoBehaviour {
 
     Player pl;
+    public GameObject slashGraphic;
+    public GameObject bowGraphic;
+    public GameObject arrowPrefab;
     Loot weapon;
     bool isMelee;
 
 	// Use this for initialization
 	void Start () {
         pl = FindObjectOfType<Player>();
+        slashGraphic.GetComponent<SlashScript>().ws = this;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (weapon != pl.equipment.rHand.item)
         {
             weapon = pl.equipment.rHand.item;
@@ -22,21 +27,53 @@ public class WeaponScript : MonoBehaviour {
             if (isMelee)
             {
                 Loot.Melee melee = weapon as Loot.Melee;
-                transform.localScale = new Vector3(melee.range, melee.range, 1);
+                slashGraphic.transform.localScale = new Vector3(melee.range, melee.range, 1);
+                bowGraphic.SetActive(false);
+            }
+            else if(weapon != null)
+            {
+                bowGraphic.SetActive(true);
             }
             
         }
-	}
-
-    // OnTriggerEnter2D is called when the Collider2D other enters the trigger (2D physics only)
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (weapon != null && weapon is Loot.Melee)
+        if (isMelee && weapon != null)
         {
-            if (collision.GetComponentInParent<Enemy>() != null)
+            if (Input.GetMouseButtonDown(0))
             {
-                pl.Attack(collision.GetComponentInParent<Enemy>(), (weapon as Loot.Melee).damage);
+                slashGraphic.SetActive(true);
+                Invoke("DeactivateSlash", .2f);
+            }
+        }else if (weapon != null) // Ranged
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameObject newArrow = GameObject.Instantiate(arrowPrefab, transform.position, transform.rotation);
+                ArrowScript arSc = newArrow.GetComponent<ArrowScript>();
+                arSc.ws = this;
+                arSc.speed = (weapon as Loot.Ranged).range / 1;
+                arSc.damage = (weapon as Loot.Ranged).damage;
+                Debug.Log("Speed" + arSc.speed);
             }
         }
     }
+
+    void DeactivateSlash()
+    {
+        slashGraphic.SetActive(false);
+    }
+
+    internal void Attack(Enemy enemy)
+    {
+        if(isMelee)
+            pl.Attack(enemy, (weapon as Loot.Melee).damage);
+        else
+            pl.Attack(enemy, (weapon as Loot.Ranged).damage);
+
+    }
+
+    internal void Attack(Enemy enemy, int damage)
+    {
+        pl.Attack(enemy, damage);
+    }
+
 }
