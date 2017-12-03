@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,12 +90,16 @@ public class MapGenerator : MonoBehaviour {
             {
                 chunk00gos[i, j] = new GameObject("Chunk 00-" + i + "-" + j);
                 chunk00Spr[i, j] = chunk00gos[i, j].AddComponent<SpriteRenderer>();
+                chunk00Spr[i, j].sortingLayerName = "Terrain";
                 chunk01gos[i, j] = new GameObject("Chunk 01-" + i + "-" + j);
                 chunk01Spr[i, j] = chunk01gos[i, j].AddComponent<SpriteRenderer>();
+                chunk01Spr[i, j].sortingLayerName = "Terrain";
                 chunk10gos[i, j] = new GameObject("Chunk 10-" + i + "-" + j);
                 chunk10Spr[i, j] = chunk10gos[i, j].AddComponent<SpriteRenderer>();
+                chunk10Spr[i, j].sortingLayerName = "Terrain";
                 chunk11gos[i, j] = new GameObject("Chunk 11-" + i + "-" + j);
                 chunk11Spr[i, j] = chunk11gos[i, j].AddComponent<SpriteRenderer>();
+                chunk11Spr[i, j].sortingLayerName = "Terrain";
             }
         }
     }
@@ -260,6 +265,8 @@ public class MapGenerator : MonoBehaviour {
         {
             hChunk--;
             RecalculateChunkPos();
+            SpawnEnemies(hChunk, vChunk);
+            SpawnEnemies(hChunk, vChunk + 1);
             if (hChunk % 2 == 0) // is even
                 RedrawH0();
             else
@@ -269,6 +276,8 @@ public class MapGenerator : MonoBehaviour {
         {
             hChunk++;
             RecalculateChunkPos();
+            SpawnEnemies(hChunk + 1, vChunk);
+            SpawnEnemies(hChunk + 1, vChunk + 1);
             if (hChunk % 2 == 0) // is even
                 RedrawH1();
             else
@@ -278,6 +287,8 @@ public class MapGenerator : MonoBehaviour {
         {
             vChunk--;
             RecalculateChunkPos();
+            SpawnEnemies(hChunk, vChunk);
+            SpawnEnemies(hChunk + 1, vChunk);
             if (vChunk % 2 == 0) // is even
                 RedrawV0();
             else
@@ -287,6 +298,8 @@ public class MapGenerator : MonoBehaviour {
         {
             vChunk++;
             RecalculateChunkPos();
+            SpawnEnemies(hChunk, vChunk + 1);
+            SpawnEnemies(hChunk + 1, vChunk + 1);
             if (vChunk % 2 == 0) // is even
                 RedrawV1();
             else
@@ -302,10 +315,6 @@ public class MapGenerator : MonoBehaviour {
         chunk01pos = new Vector2Int(hChunk + (hEven ? 0 : +1), vChunk + (vEven ? +1 : 0));
         chunk10pos = new Vector2Int(hChunk + (hEven ? +1 : 0), vChunk + (vEven ? 0 : +1));
         chunk11pos = new Vector2Int(hChunk + (hEven ? +1 : 0), vChunk + (vEven ? +1 : 0));
-        Debug.Log("00: " + chunk00pos);
-        Debug.Log("01: " + chunk01pos);
-        Debug.Log("10: " + chunk10pos);
-        Debug.Log("11: " + chunk11pos);
     }
 
     private void RedrawH0()
@@ -346,6 +355,30 @@ public class MapGenerator : MonoBehaviour {
         PlaceChunk(chunk11gos, chunk11pos);
         TileChunk(0, 1);
         TileChunk(1, 1);
+    }
+
+    private void SpawnEnemies(int hChunk, int vChunk)
+    {
+        float distance = Mathf.Sqrt(Mathf.Pow(hChunk, 2) + Mathf.Pow(vChunk, 2));
+        float difficulty = Mathf.Pow(distance / 100, 1.5f);
+        float value = Mathf.Pow(distance, 2);
+        int j = 0;
+        while (value > 0)
+        {
+            float[] rand = Enumerable.Repeat(0, 5).Select(i => UnityEngine.Random.value).ToArray();
+            rand = rand.Select(f => f / rand.Sum()).ToArray();
+            float speed = 3 + rand[0] * 3;
+            int hitpoints = 1 + (int)rand[1] * 1;
+            int damage = 1 + (int)rand[2] * 1;
+            float lungeRange = .5f + rand[3] * .5f;
+            float attackSpeed = 2f - Mathf.Sqrt(rand[4]);
+            Vector2 pos = new Vector2(hChunk * CHUNK_SIZE + UnityEngine.Random.Range(0f, CHUNK_SIZE), vChunk * CHUNK_SIZE + UnityEngine.Random.Range(0f, CHUNK_SIZE));
+            SpawnManager.SpawnEnemy(pos, speed, hitpoints, damage, lungeRange, attackSpeed);
+            float hisValue = (speed - 3) * 3 + (hitpoints - 1) + (damage - 1) + (lungeRange - .5f) * .5f + Mathf.Pow(2 - attackSpeed, 2);
+            value -= hisValue;
+            j++;
+        }
+        Debug.Log("" + j + "# spawns in chunk " + hChunk + ", " + vChunk);
     }
 
     internal bool IsValidTerrain(Vector2 position)

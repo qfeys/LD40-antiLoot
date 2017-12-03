@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class Enemy : MonoBehaviour {
     Collider2D myCollider;
     Collider2D playerCollider;
     float attackCooldown;
+
+    float lifeTime = 60;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +38,9 @@ public class Enemy : MonoBehaviour {
             Player.instance.ProcessHit(this);
             Invoke("FallBack", attackSpeed / 5);
         }
+        lifeTime -= Time.deltaTime;
+        if (lifeTime <= 0)
+            Destroy(gameObject);
     }
 
     void FallBack()
@@ -53,10 +59,9 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    private void OnDestroy()
+    internal void Die()
     {
         LootManager.instance.PlaceLootbox(transform.position);
+        Destroy(gameObject);
     }
-
-
 }

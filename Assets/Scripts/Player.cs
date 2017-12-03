@@ -55,7 +55,7 @@ public class Player : MonoBehaviour {
     {
         enemy.hitpoints -= weaponDamage;
         if (enemy.hitpoints <= 0)
-            Destroy(enemy.gameObject);
+            enemy.Die();
     }
 
     internal void ProcessHit(Enemy enemy)
