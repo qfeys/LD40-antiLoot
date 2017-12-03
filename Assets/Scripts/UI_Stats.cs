@@ -43,7 +43,7 @@ public class UI_Stats : MonoBehaviour {
         hpBox2.transform.anchoredPosition = new Vector2(-5, -94);
         TextBox armorBox1 = new TextBox(transform, "Armor", 28, TextAnchor.UpperLeft);
         armorBox1.transform.anchoredPosition = new Vector2(5, -124);
-        TextBox armorBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.equipment.Armor(false).ToString("00%")), 28, TextAnchor.UpperRight);
+        TextBox armorBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.equipment.Armor().ToString("00%")), 28, TextAnchor.UpperRight);
         armorBox2.transform.anchoredPosition = new Vector2(-5, -124);
     }
 

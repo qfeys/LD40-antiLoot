@@ -8,8 +8,10 @@ public class WeaponScript : MonoBehaviour {
     Player pl;
     public GameObject slashGraphic;
     public GameObject bowGraphic;
+    public GameObject shieldGraphic;
     public GameObject arrowPrefab;
     Loot weapon;
+    Loot.Shield shield;
     bool isMelee;
 
 	// Use this for initialization
@@ -34,8 +36,17 @@ public class WeaponScript : MonoBehaviour {
             {
                 bowGraphic.SetActive(true);
             }
-            
         }
+        if(shield != pl.equipment.lHand.item)
+        {
+            shield = pl.equipment.lHand.item as Loot.Shield;
+            if (shield != null)
+                shieldGraphic.SetActive(true);
+            else
+                shieldGraphic.SetActive(false);
+        }
+
+
         if (isMelee && weapon != null)
         {
             if (Input.GetMouseButtonDown(0))
@@ -54,6 +65,14 @@ public class WeaponScript : MonoBehaviour {
                 arSc.damage = (weapon as Loot.Ranged).damage;
                 Debug.Log("Speed" + arSc.speed);
             }
+        }
+
+        if(shield != null)
+        {
+            if (Input.GetMouseButton(1))
+                shieldGraphic.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            else
+                shieldGraphic.transform.localRotation = Quaternion.Euler(0, 0, 35);
         }
     }
 

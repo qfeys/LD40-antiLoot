@@ -28,21 +28,23 @@ public class Player : MonoBehaviour {
 
     private void Start()
     {
-        equipment.rHand.item = new Loot.Ranged(1, 8, 1, 1);
-        inventory.Add(new Loot.Melee(2, 2, 1, 1));
+        equipment.rHand.item = new Loot.Melee(1, 8, 1, 1);
     }
 
     // Update is called once per frame
     void Update ()
     {
         bool validTerrain = MapGenerator.instance.IsValidTerrain(transform.position);
+        bool shieldUp = ((equipment.lHand.item != null) && Input.GetMouseButton(1));
+        Debug.Log("lhand item: " + (equipment.lHand.item != null));
+        Debug.Log("Shield up: " + shieldUp);
         if (Input.GetButton("Horizontal"))
         {
-            transform.Translate(Vector3.right * Input.GetAxisRaw("Horizontal") * speed * encumburance * Time.deltaTime * (validTerrain? 1 : .4f), Space.World);
+            transform.Translate(Vector3.right * Input.GetAxisRaw("Horizontal") * speed * encumburance * Time.deltaTime * (validTerrain ? 1 : .4f) * (shieldUp ? .4f : 1), Space.World);
         }
         if (Input.GetButton("Vertical"))
         {
-            transform.Translate(Vector3.up * Input.GetAxisRaw("Vertical") * speed * encumburance * Time.deltaTime * (validTerrain ? 1 : .4f), Space.World);
+            transform.Translate(Vector3.up * Input.GetAxisRaw("Vertical") * speed * encumburance * Time.deltaTime * (validTerrain ? 1 : .4f) * (shieldUp ? .4f : 1), Space.World);
         }
 
         Vector3 screenPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z - Camera.main.transform.position.z));
@@ -61,7 +63,7 @@ public class Player : MonoBehaviour {
             Debug.Log("Doged the attack");
             return;
         }
-        float armor = equipment.Armor(true);
+        float armor = equipment.Armor();
         if(UnityEngine.Random.value < armor)
         {
             Debug.Log("Deflected the attack");
@@ -82,8 +84,9 @@ public class Player : MonoBehaviour {
         public ItemSlot rLeg = new ItemSlot(Loot.ItemSlot.leg);
         public ItemSlot lLeg = new ItemSlot(Loot.ItemSlot.leg);
 
-        internal float Armor(bool shieldActive)
+        internal float Armor()
         {
+            bool shieldActive = Input.GetMouseButton(1);
             float a = 0;
             a += (head.item == null ? 0 : ((head.item) as Loot.Armor).blockChance);
             a += (chest.item == null ? 0 : ((chest.item) as Loot.Armor).blockChance);

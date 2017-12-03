@@ -9,7 +9,7 @@ public class ShopScript : MonoBehaviour {
     // OnTriggerEnter2D is called when the Collider2D other enters the trigger (2D physics only)
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.IsTouchingLayers(9))
+        if(collision.GetComponentInParent<Player>() != null)
         {
             UI_shop.inventory = GenerateNewLoot();
             UI_Stats.SwitchWindowStance(UI_Stats.WindowStance.shop);

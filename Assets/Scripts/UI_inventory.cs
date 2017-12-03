@@ -153,13 +153,13 @@ static class UI_inventory
         else if (l.GetType() == typeof(Loot.Shield))
         {
             Loot.Shield s = (Loot.Shield)l;
-            return TextRef.Create("p: " + TextRef.ToSI(s.blockChancePassive, "#0%") + ", a:" + TextRef.ToSI(s.blockChanceActive, "#0%"), 
-                "Passive block chance: " + TextRef.ToSI(s.blockChancePassive,"#0%") + "\nActive block chance: " + TextRef.ToSI(s.blockChanceActive, "#0%"), false);
+            return TextRef.Create("p: " + s.blockChancePassive.ToString("#0%") + ", a:" + s.blockChanceActive.ToString("#0%"),
+                "Passive block chance: " + s.blockChancePassive.ToString("#0%") + "\nActive block chance: " + s.blockChanceActive.ToString("#0%"), false);
         }
         else if (l.GetType() == typeof(Loot.Armor))
         {
             Loot.Armor a = (Loot.Armor)l;
-            return TextRef.Create("b: " + TextRef.ToSI(a.blockChance, "#0%"), "Block chance: " + TextRef.ToSI(a.blockChance, "#0%"), false);
+            return TextRef.Create("b: " + a.blockChance.ToString("#0%"), "Block chance: " + a.blockChance.ToString("#0%"), false);
         }
 
 
