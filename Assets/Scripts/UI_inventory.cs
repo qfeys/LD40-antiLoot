@@ -93,8 +93,15 @@ static class UI_inventory
             equipButton.transform.anchorMax = new Vector2(0, 0);
             equipButton.transform.pivot = new Vector2(0, 0);
             equipButton.transform.anchoredPosition = new Vector2(40, 40);
+            TextBox dropAllButton = new TextBox(go.transform,
+                TextRef.Create("Discard All", "Throw away everything in your inventory.\nBeware! All will be lost.", false).AddLink(() => DiscardAll()),
+                24, TextAnchor.MiddleRight);
+            dropAllButton.transform.anchorMin = new Vector2(1, 0);
+            dropAllButton.transform.anchorMax = new Vector2(1, 0);
+            dropAllButton.transform.pivot = new Vector2(1, 0);
+            dropAllButton.transform.anchoredPosition = new Vector2(-150, 40);
             TextBox dropButton = new TextBox(go.transform,
-                TextRef.Create("Discard", "-Select a weapon.\n-Press this button.", false).AddLink(() => DiscardSelected()),
+                TextRef.Create("Discard", "-Select an item.\n-Press this button.", false).AddLink(() => DiscardSelected()),
                 24, TextAnchor.MiddleRight);
             dropButton.transform.anchorMin = new Vector2(1, 0);
             dropButton.transform.anchorMax = new Vector2(1, 0);
@@ -195,6 +202,11 @@ static class UI_inventory
             Player.instance.inventory.Remove(lt);
         }
         else Debug.Log("Not a valid slot");
+    }
+
+    private static void DiscardAll()
+    {
+        Player.instance.inventory.RemoveAll(l => true);
     }
 
     private static void DiscardSelected()

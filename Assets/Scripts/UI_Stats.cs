@@ -7,6 +7,9 @@ public class UI_Stats : MonoBehaviour {
 
     public Font DefaultFont;
 
+    public enum WindowStance { non, inventory, shop}
+    static WindowStance windowstance = WindowStance.non;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -14,6 +17,7 @@ public class UI_Stats : MonoBehaviour {
         QuintensUITools.Graphics.SetPath(@"Assets\");
         QuintensUITools.Graphics.LoadGraphics();
         UI_inventory.Create(transform.parent.gameObject);
+        UI_shop.Create(transform.parent.gameObject);
 
         CreateMe();
 
@@ -40,19 +44,49 @@ public class UI_Stats : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (Input.GetButtonDown("inventory"))
         {
-            if (UI_inventory.go.activeSelf)
+            switch (windowstance)
             {
-                UI_inventory.go.SetActive(false);
-                Time.timeScale = 1;
-            }
-            else
-            {
-                UI_inventory.go.SetActive(true);
-                Time.timeScale = 0;
+            case WindowStance.non: SwitchWindowStance(WindowStance.inventory); break;
+            case WindowStance.inventory: SwitchWindowStance(WindowStance.non); break;
+            case WindowStance.shop: SwitchWindowStance(WindowStance.non); break;
             }
         }
-	}
+        if (Input.GetButtonDown("Cancel"))
+        {
+            SwitchWindowStance(WindowStance.non);
+        }
+    }
+
+    public static void SwitchWindowStance(WindowStance stance)
+    {
+        if (stance == windowstance) return;
+        if(windowstance == WindowStance.non)
+        {
+            Time.timeScale = 0;
+            switch (stance)
+            {
+            case WindowStance.inventory: UI_inventory.go.SetActive(true); break;
+            case WindowStance.shop: UI_shop.go.SetActive(true); break;
+            default: throw new System.Exception("Invalid stance");
+            }
+        }else 
+        {
+            UI_inventory.go.SetActive(false);
+            UI_shop.go.SetActive(false);
+            switch (stance)
+            {
+            case WindowStance.non: Time.timeScale = 1; break;
+            case WindowStance.inventory: UI_inventory.go.SetActive(true); break;
+            case WindowStance.shop: UI_shop.go.SetActive(true); break;
+            default: throw new System.Exception("Invalid stance");
+            }
+        }
+        windowstance = stance;
+    }
+
+
 }

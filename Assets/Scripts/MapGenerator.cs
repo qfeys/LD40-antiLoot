@@ -7,6 +7,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour {
 
     public Transform viewPoint;
+    public GameObject ShopPrefab;
 
     public Sprite landAll;
     public Sprite landNES;
@@ -362,6 +363,7 @@ public class MapGenerator : MonoBehaviour {
         float distance = Mathf.Sqrt(Mathf.Pow(hChunk, 2) + Mathf.Pow(vChunk, 2));
         float difficulty = Mathf.Max( Mathf.Pow(distance / 100, 1.5f),1);
         float value = Mathf.Max(Mathf.Pow(distance, 2), 1);
+        SpawnShop(value, hChunk, vChunk);
         int j = 0;
         while (value > 0)
         {
@@ -379,6 +381,19 @@ public class MapGenerator : MonoBehaviour {
             j++;
         }
         Debug.Log("" + j + "# spawns in chunk " + hChunk + ", " + vChunk);
+    }
+
+    private void SpawnShop(float value, int hChunk, int vChunk)
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            int x = hChunk * CHUNK_SIZE + UnityEngine.Random.Range(5, CHUNK_SIZE - 5);
+            int y = vChunk * CHUNK_SIZE + UnityEngine.Random.Range(5, CHUNK_SIZE - 5);
+            if (IsSwamp(x, y)) continue;
+            GameObject shop = GameObject.Instantiate(ShopPrefab, new Vector3(x, y), Quaternion.identity);
+            shop.GetComponent<ShopScript>().value = value;
+            break;
+        }
     }
 
     internal bool IsValidTerrain(Vector2 position)
