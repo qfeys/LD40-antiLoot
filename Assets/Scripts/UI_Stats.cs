@@ -25,22 +25,26 @@ public class UI_Stats : MonoBehaviour {
 
     private void CreateMe()
     {
-        TextBox xpBox1 = new TextBox(transform, TextRef.Create( "Xp", "Experiance", false), 36);
-        xpBox1.transform.anchoredPosition = new Vector2(5, 57);
-        TextBox xpBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.xp), 36, TextAnchor.MiddleRight);
-        xpBox2.transform.anchoredPosition = new Vector2(-5, 57);
-        TextBox coinBox1 = new TextBox(transform, "Coins", 36);
-        coinBox1.transform.anchoredPosition = new Vector2(5, 19);
-        TextBox coinBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.coins), 36, TextAnchor.MiddleRight);
-        coinBox2.transform.anchoredPosition = new Vector2(-5, 19);
-        TextBox weightBox1 = new TextBox(transform, "Weight", 36);
-        weightBox1.transform.anchoredPosition = new Vector2(5, -19);
-        TextBox weightBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.TotalWeight), 36, TextAnchor.MiddleRight);
-        weightBox2.transform.anchoredPosition = new Vector2(-5, -19);
-        TextBox hpBox1 = new TextBox(transform, "HP", 36);
-        hpBox1.transform.anchoredPosition = new Vector2(5, -57);
-        TextBox hpBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.hitpoints), 36, TextAnchor.MiddleRight);
-        hpBox2.transform.anchoredPosition = new Vector2(-5, -57);
+        TextBox xpBox1 = new TextBox(transform, TextRef.Create( "Xp", "Experiance", false), 28, TextAnchor.UpperLeft);
+        xpBox1.transform.anchoredPosition = new Vector2(5, -4);
+        TextBox xpBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.xp), 28, TextAnchor.UpperRight);
+        xpBox2.transform.anchoredPosition = new Vector2(-5, -4);
+        TextBox coinBox1 = new TextBox(transform, "Coins", 28, TextAnchor.UpperLeft);
+        coinBox1.transform.anchoredPosition = new Vector2(5, -34);
+        TextBox coinBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.coins), 28, TextAnchor.UpperRight);
+        coinBox2.transform.anchoredPosition = new Vector2(-5, -34);
+        TextBox weightBox1 = new TextBox(transform, "Weight", 28, TextAnchor.UpperLeft);
+        weightBox1.transform.anchoredPosition = new Vector2(5, -64);
+        TextBox weightBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.TotalWeight), 28, TextAnchor.UpperRight);
+        weightBox2.transform.anchoredPosition = new Vector2(-5, -64);
+        TextBox hpBox1 = new TextBox(transform, "HP", 28, TextAnchor.UpperLeft);
+        hpBox1.transform.anchoredPosition = new Vector2(5, -94);
+        TextBox hpBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.hitpoints), 28, TextAnchor.UpperRight);
+        hpBox2.transform.anchoredPosition = new Vector2(-5, -94);
+        TextBox armorBox1 = new TextBox(transform, "Armor", 28, TextAnchor.UpperLeft);
+        armorBox1.transform.anchoredPosition = new Vector2(5, -124);
+        TextBox armorBox2 = new TextBox(transform, TextRef.Create(() => Player.instance.equipment.Armor(false).ToString("00%")), 28, TextAnchor.UpperRight);
+        armorBox2.transform.anchoredPosition = new Vector2(-5, -124);
     }
 
     // Update is called once per frame
