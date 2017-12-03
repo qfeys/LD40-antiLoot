@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour {
     public int damage = 1;
     public float lungeRange = .5f;
     public float attackSpeed = 1;
+    public float value = 1;
     Collider2D myCollider;
     Collider2D playerCollider;
     float attackCooldown;
@@ -58,7 +59,7 @@ public class Enemy : MonoBehaviour {
 
     internal void Die()
     {
-        LootManager.instance.PlaceLootbox(transform.position);
+        LootManager.instance.PlaceLootbox(transform.position, value);
         Destroy(gameObject);
     }
 }

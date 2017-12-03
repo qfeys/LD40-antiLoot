@@ -375,8 +375,8 @@ public class MapGenerator : MonoBehaviour {
             float lungeRange = .5f + rand[3] * .5f;
             float attackSpeed = 2f - Mathf.Sqrt(rand[4]);
             Vector2 pos = new Vector2(hChunk * CHUNK_SIZE + UnityEngine.Random.Range(0f, CHUNK_SIZE), vChunk * CHUNK_SIZE + UnityEngine.Random.Range(0f, CHUNK_SIZE));
-            SpawnManager.SpawnEnemy(pos, speed, hitpoints, damage, lungeRange, attackSpeed);
             float hisValue = (speed - 3) * 3 + (hitpoints - 1) + (damage - 1) + (lungeRange - .5f) * .5f + Mathf.Pow(2 - attackSpeed, 2);
+            SpawnManager.SpawnEnemy(pos, speed, hitpoints, damage, lungeRange, attackSpeed, hisValue);
             value -= hisValue;
             j++;
         }

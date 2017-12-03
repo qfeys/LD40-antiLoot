@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour {
         instance = this;
     }
 
-    internal static void SpawnEnemy(Vector2 pos, float speed, int hitpoints, int damage, float lungeRange, float attackSpeed)
+    internal static void SpawnEnemy(Vector2 pos, float speed, int hitpoints, int damage, float lungeRange, float attackSpeed, float value)
     {
         GameObject newEnemy = GameObject.Instantiate(instance.enemy, pos, Quaternion.identity);
         Enemy component = newEnemy.GetComponent<Enemy>();
@@ -24,6 +24,7 @@ public class SpawnManager : MonoBehaviour {
         component.damage = damage;
         component.lungeRange = lungeRange;
         component.attackSpeed = attackSpeed;
+        component.value = value;
         newEnemy.tag = "Enemy";
     }
 }

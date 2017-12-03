@@ -14,10 +14,6 @@ public class LootBox : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        coins = Random.Range(1, 6);
-        pos = transform.position;
-        if (Random.value > 0.6)
-            loot = Loot.GetRandLoot(20);
 	}
 	
 	// Update is called once per frame
@@ -25,6 +21,14 @@ public class LootBox : MonoBehaviour {
         transform.position = (Vector3)pos + Quaternion.Euler(0, 0, lifetime * 360 * rps) * Vector3.up * .1f;
         lifetime += Time.deltaTime;
 	}
+
+    public void SetLoot(float value)
+    {
+        coins = (int)Random.Range(value / 10, value - 1) + 1;
+        pos = transform.position;
+        if (Random.value > 0.6)
+            loot = Loot.GetRandLoot(value - coins);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -22,7 +22,7 @@ public class ShopScript : MonoBehaviour {
         List<Loot> ret = new List<Loot>();
         while (value > 0)
         {
-            ret.Add(Loot.GetRandLoot(Random.Range(value * .1f, value * .8f)));
+            ret.Add(Loot.GetRandLoot(Random.Range(value * .2f, value * .8f)));
             value -= ret.FindLast(l => true).value;
         }
         return ret;

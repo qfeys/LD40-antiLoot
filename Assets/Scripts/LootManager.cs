@@ -21,8 +21,9 @@ public class LootManager : MonoBehaviour {
 		
 	}
 
-    public void PlaceLootbox(Vector2 pos)
+    public void PlaceLootbox(Vector2 pos, float value)
     {
         GameObject lb = GameObject.Instantiate(LootBoxPrefab, pos, Quaternion.identity);
+        lb.GetComponent<LootBox>().SetLoot(value);
     }
 }
