@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e96cd65c8c5fa7542b7be1a12319bc3c
-timeCreated: 1512296382
+timeCreated: 1512300939
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -17,7 +17,7 @@ TextureImporter:
     21300020: LandS
     21300022: MapTiles_11
     21300024: LandNEW
-    21300026: MapTiles_13
+    21300026: LandNon
     21300028: MapTiles_14
     21300030: MapTiles_15
     21300032: LandNE
@@ -54,7 +54,7 @@ TextureImporter:
     21300094: WetSW
     21300096: MapTiles_48
     21300098: MapTiles_49
-    21300100: MapTiles_50
+    21300100: WetNon
     21300102: WetESW
     21300104: MapTiles_52
     21300106: WetN
@@ -333,7 +333,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTiles_13
+      name: LandNon
       rect:
         serializedVersion: 2
         x: 160
@@ -851,7 +851,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MapTiles_50
+      name: WetNon
       rect:
         serializedVersion: 2
         x: 64
