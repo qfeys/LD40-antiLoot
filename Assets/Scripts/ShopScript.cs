@@ -14,6 +14,7 @@ public class ShopScript : MonoBehaviour {
             UI_shop.inventory = GenerateNewLoot();
             UI_Stats.SwitchWindowStance(UI_Stats.WindowStance.shop);
             Destroy(gameObject);
+            MusicPlayer.PlayBel();
         }
     }
 

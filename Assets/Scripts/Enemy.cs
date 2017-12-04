@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour {
             transform.Translate(Vector3.right * lungeRange);
             Player.instance.ProcessHit(this);
             Invoke("FallBack", attackSpeed / 5);
+            MusicPlayer.PlayBite();
         }
         lifeTime -= Time.deltaTime;
         if (lifeTime <= 0)
@@ -61,5 +62,6 @@ public class Enemy : MonoBehaviour {
     {
         LootManager.instance.PlaceLootbox(transform.position, value);
         Destroy(gameObject);
+        MusicPlayer.PlayDeath();
     }
 }

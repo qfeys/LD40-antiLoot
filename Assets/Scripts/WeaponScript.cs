@@ -53,6 +53,7 @@ public class WeaponScript : MonoBehaviour {
             {
                 slashGraphic.SetActive(true);
                 Invoke("DeactivateSlash", .2f);
+                MusicPlayer.PlaySlash();
             }
         }else if (weapon != null) // Ranged
         {
@@ -63,7 +64,7 @@ public class WeaponScript : MonoBehaviour {
                 arSc.ws = this;
                 arSc.speed = (weapon as Loot.Ranged).range / 1;
                 arSc.damage = (weapon as Loot.Ranged).damage;
-                Debug.Log("Speed" + arSc.speed);
+                MusicPlayer.PlayShot();
             }
         }
 
