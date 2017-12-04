@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     public int coins = 0;
     public List<Loot> inventory;
     public Equipment equipment = new Equipment();
+    public GameOver gameOver;
 
     public static Player instance;
     public int xp;
@@ -69,6 +70,11 @@ public class Player : MonoBehaviour {
         }
         hitpoints -= enemy.damage;
         Debug.Log("Hit. HP left: " + hitpoints);
+        if(hitpoints <= 0)
+        {
+            gameOver.distance = transform.position.magnitude;
+            UI_Stats.SwitchWindowStance(UI_Stats.WindowStance.gameOver);
+        }
     }
 
     public class Equipment

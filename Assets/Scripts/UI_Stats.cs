@@ -7,8 +7,8 @@ public class UI_Stats : MonoBehaviour {
 
     public Font DefaultFont;
 
-    public enum WindowStance { non, inventory, shop}
-    static WindowStance windowstance = WindowStance.non;
+    public enum WindowStance { non, inventory, shop, gameOver}
+    public static WindowStance windowstance = WindowStance.non;
 
 	// Use this for initialization
 	void Start ()
@@ -68,6 +68,7 @@ public class UI_Stats : MonoBehaviour {
     public static void SwitchWindowStance(WindowStance stance)
     {
         if (stance == windowstance) return;
+        if (windowstance == WindowStance.gameOver) return;
         if(windowstance == WindowStance.non)
         {
             Time.timeScale = 0;
@@ -75,6 +76,7 @@ public class UI_Stats : MonoBehaviour {
             {
             case WindowStance.inventory: UI_inventory.go.SetActive(true); break;
             case WindowStance.shop: UI_shop.go.SetActive(true); break;
+            case WindowStance.gameOver: Player.instance.gameOver.gameObject.SetActive(true); break;
             default: throw new System.Exception("Invalid stance");
             }
         }else 

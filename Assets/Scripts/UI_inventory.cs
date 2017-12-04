@@ -20,7 +20,7 @@ static class UI_inventory
         go.transform.SetParent(canvas.transform);
         go.AddComponent<Dragable>();
         RectTransform tr = (RectTransform)go.transform;
-        tr.sizeDelta = new Vector2(700, 600);
+        tr.sizeDelta = new Vector2(800, 600);
         tr.anchorMin = new Vector2(.5f, .5f);
         tr.anchorMax = new Vector2(.5f, .5f);
         tr.pivot = new Vector2(.5f, .5f);
@@ -76,7 +76,7 @@ static class UI_inventory
         {
             inventoryTable = InfoTable.Create(go.transform, () => Player.instance.inventory,
                 (Loot l) => new List<TextRef>() { l.ToString(), GetSpecificDetails(l), l.weight, l.value, l.slot.ToString() },
-                520, new List<TextRef>() { "Inventory", "Specifics", TextRef.Create("w", "Weight", false), TextRef.Create("v", "value", false), "s" }, 24);
+                520, new List<TextRef>() { "Inventory", "Specifics", TextRef.Create("w", "Weight", false), TextRef.Create("v", "value", false), "Slot" }, 24);
             inventoryTable.transform.anchorMin = new Vector2(1, 1);
             inventoryTable.transform.anchorMax = new Vector2(1, 1);
             inventoryTable.transform.pivot = new Vector2(1, 1);

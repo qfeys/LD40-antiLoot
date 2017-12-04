@@ -49,7 +49,7 @@ public class WeaponScript : MonoBehaviour {
 
         if (isMelee && weapon != null)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && UI_Stats.windowstance == UI_Stats.WindowStance.non)
             {
                 slashGraphic.SetActive(true);
                 Invoke("DeactivateSlash", .2f);
@@ -57,7 +57,7 @@ public class WeaponScript : MonoBehaviour {
             }
         }else if (weapon != null) // Ranged
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && UI_Stats.windowstance == UI_Stats.WindowStance.non)
             {
                 GameObject newArrow = GameObject.Instantiate(arrowPrefab, transform.position, transform.rotation);
                 ArrowScript arSc = newArrow.GetComponent<ArrowScript>();

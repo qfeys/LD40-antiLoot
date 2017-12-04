@@ -21,9 +21,9 @@ public class ShopScript : MonoBehaviour {
     private List<Loot> GenerateNewLoot()
     {
         List<Loot> ret = new List<Loot>();
-        while (value > 0)
+        while (value > 1 && ret.Count < 10)
         {
-            ret.Add(Loot.GetRandLoot(Random.Range(value * .2f, value * .8f)));
+            ret.Add(Loot.GetRandLoot(Random.Range(value * .3f, value * .9f)));
             value -= ret.FindLast(l => true).value;
         }
         return ret;
